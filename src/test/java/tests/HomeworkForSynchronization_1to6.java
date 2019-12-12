@@ -10,14 +10,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.BrowserFactory;
 import utilities.BrowserUtils;
-import utilities.StringUtility;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class HomeworkForSynchronization {
+public class HomeworkForSynchronization_1to6 {
 
     private WebDriver driver;
 
