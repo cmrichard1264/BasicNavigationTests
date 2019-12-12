@@ -14,13 +14,13 @@ public class TitleVerification {
                 "http://practice.cybertekschool.com/login");
         WebDriverManager.chromedriver().setup();
         ChromeDriver driver = new ChromeDriver();
-        String actualUrl = "http://practice.cybertekschool.com/";
-        String actualTitle = "Practice";
+        String expectedUrl = "http://practice.cybertekschool.com/";
+        String expectedTitle = "Practice";
         for(String each: urls){
             driver.get(each);
-            StringUtility.verifyEquals(actualTitle, driver.getTitle());
-            if(driver.getCurrentUrl().contains(actualUrl)){
-                System.out.println("Passed - URL starts with: "+actualUrl);
+            StringUtility.verifyEquals(expectedTitle, driver.getTitle());
+            if(driver.getCurrentUrl().contains(expectedUrl)){
+                System.out.println("Passed - URL starts with: "+expectedUrl);
             }else {
                 System.out.println("Failed");
             }

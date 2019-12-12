@@ -10,7 +10,7 @@ import utilities.BrowserFactory;
 import utilities.StringUtility;
 
 
-public class TestCases {
+public class HomeworkForBasicNavigation_1to8 {
 
     private WebDriver driver;
 
