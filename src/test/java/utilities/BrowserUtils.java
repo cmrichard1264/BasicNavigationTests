@@ -162,4 +162,19 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(Driver.get(), 10);
         wait.until(ExpectedConditions.titleIs(pageTitle));
     }
+
+    public static boolean waitUntilLoaderMaskDisappear() {
+        WebDriverWait wait = new WebDriverWait(Driver.get(), 10);
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class='loader-mask shown']")));
+            return true;
+        } catch (NoSuchElementException e) {
+            System.out.println("Loader mask not found!");
+            e.printStackTrace();
+            return true; // no loader mask, all good, return true
+        } catch (WebDriverException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

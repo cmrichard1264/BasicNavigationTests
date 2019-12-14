@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.BrowserFactory;
 
-public class HomeworkForTesting_9to12 {
+public class Homework2_ForTesting_9to12 {
 
     private WebDriver driver;
     private WebElement message;

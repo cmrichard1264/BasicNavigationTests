@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import utilities.BrowserFactory;
 import utilities.BrowserUtils;
 
-public class HomeworkForTesting_1to8 {
+public class Homework2_ForTesting_1to8 {
 
     private WebDriver driver;
 

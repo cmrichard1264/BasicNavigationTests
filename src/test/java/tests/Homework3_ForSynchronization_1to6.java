@@ -12,7 +12,7 @@ import utilities.BrowserFactory;
 import utilities.BrowserUtils;
 import java.util.List;
 
-public class HomeworkForSynchronization_1to6 {
+public class Homework3_ForSynchronization_1to6 {
 
     private WebDriver driver;
 
@@ -54,8 +54,6 @@ public class HomeworkForSynchronization_1to6 {
         String actualResult = driver.findElement(By.xpath("//input[@value=\"1\"]")).getAttribute("value");
         Assert.assertEquals(expectedResult, actualResult);
         //StringUtility.verifyEquals(expectedResult, actualResult);
-
-
     }
 
     @Test(description = "Verify that view per page number is equals to '25' ")
@@ -89,13 +87,16 @@ public class HomeworkForSynchronization_1to6 {
         driver.findElement(By.xpath("//div[@class=\"btn-group dropdown\"]/button/input")).click();
         BrowserUtils.wait(1);
         List<WebElement> checkboxes = driver.findElements(By.xpath("//td[@data-column-label=\"Selected Rows\"]/input"));
-        int index = 1;
+        /*int index = 1;
         for(WebElement checkbox: checkboxes){
             if(checkbox.isSelected()){
                 System.out.println("Checkbox # "+index+" clicked");
             }else {
                 System.out.println("Failed");
             }index++;
+        }*/
+        for (WebElement checkbox: checkboxes){
+            Assert.assertTrue(checkbox.isSelected(), "Failed");
         }
 
     }
