@@ -76,6 +76,7 @@ public class Homework2_ForTesting_1to8 {
     @Test(description = "Verify that following success message is displayed:" +
             "  'You've successfully completed registration!'   ")
     public void test5(){
+
         driver.findElement(By.xpath("//a[@href='/registration_form']")).click();
         driver.findElement(By.name("firstname")).sendKeys("Ava");
         driver.findElement(By.name("lastname")).sendKeys("Richard");
