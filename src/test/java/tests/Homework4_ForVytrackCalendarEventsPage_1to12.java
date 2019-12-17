@@ -1,10 +1,9 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.http.impl.io.IdentityInputStream;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -12,6 +11,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.BrowserFactory;
 import utilities.BrowserUtils;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Homework4_ForVytrackCalendarEventsPage_1to12 {
@@ -32,7 +33,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         //BrowserUtils.waitUntilLoaderMaskDisappear();
         //driver.findElement(By.linkText("Activities")).click();
         //driver.findElement(By.linkText("Calendar Events")).click();
-        BrowserUtils.wait(3);
+        BrowserUtils.wait(4);
         driver.findElement(By.xpath("//*[normalize-space()='Activities' and @class='title title-level-1']")).click();
         driver.findElement(By.xpath("//*[normalize-space()='Calendar Events' and @class='title title-level-2']")).click();
         BrowserUtils.wait(2);
@@ -92,7 +93,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
     @Test(description = "Verify that difference between end and start time is exactly 1 hour")
     public void test5(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
-        BrowserUtils.wait(2);
+        BrowserUtils.wait(3);
         String startTime = driver.findElement(By.xpath("//input[@name=\"oro_calendar_event_form[start]\"]")).getAttribute("value");
         String endTime = driver.findElement(By.xpath("//input[@name=\"oro_calendar_event_form[end]\"]")).getAttribute("value");
         System.out.println("Start time and date: "+ startTime);
@@ -105,6 +106,37 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
             System.out.println("Passed ");
         }else {
             System.out.println("Failed");
+        }
+    }
+
+    @Test(description = "Verify that end time is equals to “10:00 PM”")
+    public void test6(){
+        driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
+        BrowserUtils.wait(3);
+        driver.findElement(By.xpath("//input[contains(@class, \"start u\")]")).click();
+        driver.findElement(By.xpath("//li[text()=\"9:00 PM\"]")).click();
+        driver.findElement(By.xpath("//input[contains(@class, \"end u\")]")).click();
+        WebElement endTime = driver.findElement(By.xpath("//li[3][text()=\"10:00 PM\"]"));
+        Assert.assertEquals(endTime.getText(), "10:00 PM", "Test Failed");
+    }
+
+    @Test(description = "1. Verify that “All-Day Event” checkbox is selected" +
+                        "2. Verify that start and end time input boxes are not displayed" +
+                        "3. Verify that start and end date input boxes are displayed")
+    public void test7(){
+        driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
+        BrowserUtils.wait(3);
+        WebElement allDay = driver.findElement(By.name("oro_calendar_event_form[allDay]"));
+        allDay.click();
+        BrowserUtils.wait(1);
+        Assert.assertTrue(allDay.isSelected());
+        List<WebElement> time = driver.findElements(By.xpath("//input[@placeholder=\"time\"]"));
+        for(WebElement each: time){
+            Assert.assertTrue(!each.isDisplayed());
+        }
+        List<WebElement> date = driver.findElements(By.xpath("//input[@placeholder=\"Choose a date\"]"));
+        for(WebElement each: date){
+            Assert.assertTrue(each.isDisplayed());
         }
     }
 
