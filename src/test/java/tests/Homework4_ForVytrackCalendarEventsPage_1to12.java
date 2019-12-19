@@ -203,6 +203,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         System.out.println(text.getText()+" is Displayed!");
     }
 
+
     @Test(description = "1. Verify that “Monday and Friday” options are selected" +
                         "2. Verify that following message as a summary is displayed:" +
                         "“Summary: Weekly every 1 week on Monday, Friday”")
