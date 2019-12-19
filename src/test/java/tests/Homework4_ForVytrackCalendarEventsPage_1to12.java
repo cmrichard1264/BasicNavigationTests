@@ -1,8 +1,10 @@
 package tests;
 
-import org.apache.http.impl.io.IdentityInputStream;
+
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -11,14 +13,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.BrowserFactory;
 import utilities.BrowserUtils;
-
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Homework4_ForVytrackCalendarEventsPage_1to12 {
 
     private WebDriver driver;
-    private WebDriverWait wait;
+
 
 
 
@@ -29,11 +29,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         driver.get("https://qa1.vytrack.com/");
         driver.findElement(By.name("_username")).sendKeys("storemanager85");
         driver.findElement(By.name("_password")).sendKeys("UserUser123", Keys.ENTER);
-        //driver.findElement(By.name("_submit")).click();
-        //BrowserUtils.waitUntilLoaderMaskDisappear();
-        //driver.findElement(By.linkText("Activities")).click();
-        //driver.findElement(By.linkText("Calendar Events")).click();
-        BrowserUtils.wait(4);
+        BrowserUtils.wait(3);
         driver.findElement(By.xpath("//*[normalize-space()='Activities' and @class='title title-level-1']")).click();
         driver.findElement(By.xpath("//*[normalize-space()='Calendar Events' and @class='title title-level-2']")).click();
         BrowserUtils.wait(2);
@@ -140,7 +136,88 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         }
     }
 
+    @Test(description ="1. Verify that “Repeat” checkbox is selected" +
+                       "2. Verify that “Daily” is selected by default and" +
+                        "following options are available in “Repeats” drop-down:")
+    public void test8(){
+        driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
+        BrowserUtils.wait(4);
+        WebElement repeat = driver.findElement(By.xpath("//input[@data-name=\"recurrence-repeat\"]"));
+        repeat.click();
+        Assert.assertTrue(repeat.isSelected());
+        driver.findElement(By.xpath("//select[@data-name=\"recurrence-repeats\"]")).click();
+        BrowserUtils.wait(1);
+        List<WebElement> repeats = driver.findElements(By.xpath("//select[@data-name=\"recurrence-repeats\"]//option"));
+        for (WebElement each: repeats){
+            Assert.assertTrue(each.isDisplayed());
+        }
+    }
 
+    @Test(description = "1. Verify that “Repeat” checkbox is selected" +
+                        "2. Verify that “Repeat Every” radio button is selected" +
+                        "3. Verify that “Never” radio button is selected as an “Ends” option" +
+                        "4. Verify that following message as a summary is displayed: “Summary: Daily every 1 day”" )
+    public void test9() {
+        driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
+        BrowserUtils.wait(2);
+        WebElement repeat = driver.findElement(By.xpath("//input[@data-name=\"recurrence-repeat\"]"));
+        repeat.click();
+        Assert.assertTrue(repeat.isSelected());   //1
+        WebElement repeatEvery = driver.findElement(By.xpath("//input[@checked='checked']"));
+        Assert.assertTrue(repeatEvery.isSelected());  //2
+        WebElement ends = driver.findElement(By.xpath("//input[@checked='']"));
+        Assert.assertTrue(ends.isSelected());   //3
+        WebElement texts = driver.findElement(By.xpath("//div[@class='control-group recurrence-summary alert-info']"));
+        Assert.assertTrue(texts.isDisplayed());  //4
+        System.out.println(texts.getText() + " is Displayed!");
+    }
+
+    @Test(description = "Verify that following message as a summary is displayed:" +
+                        "Summary: Daily every 1 day, end after 10 occurrences”")
+    public void test10(){
+        driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
+        BrowserUtils.wait(2);
+        driver.findElement(By.xpath("//input[@data-name=\"recurrence-repeat\"]")).click();
+        driver.findElement(By.xpath("//*[text()=\"After\"]")).click();
+        driver.findElement(By.xpath("//input[@data-related-field='occurrences']")).sendKeys("10", Keys.ENTER);
+        WebElement text = driver.findElement(By.xpath("//div[@class=\"control-group recurrence-summary alert-info\"]"));
+        Assert.assertTrue(text.isDisplayed());
+        System.out.println(text.getText()+" is Displayed!");
+    }
+
+    @Test(description = "Verify that following message as a summary is displayed:" +
+                        "“Summary: Daily every 1 day, end by Nov 18, 2021”")
+    public void test11(){
+        driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
+        BrowserUtils.wait(2);
+        driver.findElement(By.xpath("//input[@data-name=\"recurrence-repeat\"]")).click();
+        driver.findElement(By.xpath("//*[text()=\"By\"]")).click();
+        driver.findElement(By.xpath("//input[@class='datepicker-input hasDatepicker']")).sendKeys("NOV 18, 2021", Keys.ENTER);
+        WebElement text = driver.findElement(By.xpath("//div[@class=\"control-group recurrence-summary alert-info\"]"));
+        Assert.assertTrue(text.isDisplayed());
+        System.out.println(text.getText()+" is Displayed!");
+    }
+
+    @Test(description = "1. Verify that “Monday and Friday” options are selected" +
+                        "2. Verify that following message as a summary is displayed:" +
+                        "“Summary: Weekly every 1 week on Monday, Friday”")
+
+    public void test12(){
+        driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
+        BrowserUtils.wait(2);
+        driver.findElement(By.xpath("//input[@data-name=\"recurrence-repeat\"]")).click();
+        Select repeats = new Select(driver.findElement(By.xpath("//select[@data-name=\"recurrence-repeats\"]")));
+        repeats.selectByValue("weekly");
+        WebElement monday = driver.findElement(By.xpath("//input[@value=\"monday\"]"));
+        monday.click();
+        WebElement friday = driver.findElement(By.xpath("//input[@value=\"friday\"]"));
+        friday.click();
+        Assert.assertTrue(monday.isSelected());
+        Assert.assertTrue(friday.isSelected());
+        WebElement text = driver.findElement(By.xpath("//div[@class=\"control-group recurrence-summary alert-info\"]"));
+        Assert.assertTrue(text.isDisplayed());
+        System.out.println(text.getText()+" is Displayed!");
+    }
 
     @AfterMethod
     public void teardown() {
