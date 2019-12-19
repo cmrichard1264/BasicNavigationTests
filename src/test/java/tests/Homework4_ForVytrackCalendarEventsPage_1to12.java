@@ -32,7 +32,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
 
 
     @Test(description = "Verify that “view”, “edit” and “delete” options are available")
-    public void test1(){
+    public void test01(){
         Actions action = new Actions(driver);
         WebElement hover  = driver.findElement(By.xpath("//tr[4]//td[9]"));
         action.moveToElement(hover).build().perform();
@@ -45,7 +45,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
 
 
     @Test(description = "Verify that “Title” column still displayed")
-    public void test2(){
+    public void test02(){
         driver.findElement(By.xpath("//div[@class=\"column-manager dropdown\"]")).click();
         List<WebElement> checkboxes = driver.findElements(By.xpath("//tbody//tr//td//input[@id]"));
         for(WebElement checkbox: checkboxes){
@@ -64,29 +64,30 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
 
     @Test(description = "Verify that “Save And Close”, “Save And New” " +
                          "and “Save” options are available")
-    public void test3(){
+    public void test03(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(2);
         driver.findElement(By.cssSelector("[class='btn-success btn dropdown-toggle']")).click();
         List<WebElement> options = driver.findElements(By.xpath("//li//button"));
         for(WebElement option: options){
+            Assert.assertTrue(option.isEnabled());  //
             Assert.assertTrue(option.isDisplayed());
         }
     }
 
 
     @Test(description = "Verify that “All Calendar Events” page subtitle is displayed")
-    public void test4(){
+    public void test04(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(2);
         driver.findElement(By.linkText("Cancel")).click();
         WebElement events = driver.findElement(By.className("oro-subtitle"));
-        Assert.assertTrue(events.isDisplayed());
+        Assert.assertTrue(events.isDisplayed());  //
     }
 
 
     @Test(description = "Verify that difference between end and start time is exactly 1 hour")
-    public void test5(){
+    public void test05(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(3);
         String startTime = driver.findElement(By.xpath("//input[@name=\"oro_calendar_event_form[start]\"]")).getAttribute("value");
@@ -98,7 +99,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         int start = Integer.parseInt(startTime);
         int end = Integer.parseInt(endTime);
         if(end-start == 100){
-            System.out.println("Passed ");
+            System.out.println("Passed "); //
         }else {
             System.out.println("Failed");
         }
@@ -106,34 +107,34 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
 
 
     @Test(description = "Verify that end time is equals to “10:00 PM”")
-    public void test6(){
+    public void test06(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(3);
         driver.findElement(By.xpath("//input[contains(@class, \"start u\")]")).click();
         driver.findElement(By.xpath("//li[text()=\"9:00 PM\"]")).click();
         driver.findElement(By.xpath("//input[contains(@class, \"end u\")]")).click();
         WebElement endTime = driver.findElement(By.xpath("//li[3][text()=\"10:00 PM\"]"));
-        Assert.assertEquals(endTime.getText(), "10:00 PM", "Test Failed");
+        Assert.assertEquals(endTime.getText(), "10:00 PM", "Test Failed"); //
     }
 
 
     @Test(description = "1. Verify that “All-Day Event” checkbox is selected" +
                         "2. Verify that start and end time input boxes are not displayed" +
                         "3. Verify that start and end date input boxes are displayed")
-    public void test7(){
+    public void test07(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(3);
         WebElement allDay = driver.findElement(By.name("oro_calendar_event_form[allDay]"));
         allDay.click();
         BrowserUtils.wait(1);
-        Assert.assertTrue(allDay.isSelected());
+        Assert.assertTrue(allDay.isSelected());  //1
         List<WebElement> time = driver.findElements(By.xpath("//input[@placeholder=\"time\"]"));
         for(WebElement each: time){
-            Assert.assertTrue(!each.isDisplayed());
+            Assert.assertTrue(!each.isDisplayed());  //2
         }
         List<WebElement> date = driver.findElements(By.xpath("//input[@placeholder=\"Choose a date\"]"));
         for(WebElement each: date){
-            Assert.assertTrue(each.isDisplayed());
+            Assert.assertTrue(each.isDisplayed());  //3
         }
     }
 
@@ -141,17 +142,17 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
     @Test(description ="1. Verify that “Repeat” checkbox is selected" +
                        "2. Verify that “Daily” is selected by default and" +
                         "following options are available in “Repeats” drop-down:")
-    public void test8(){
+    public void test08(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(4);
         WebElement repeat = driver.findElement(By.xpath("//input[@data-name=\"recurrence-repeat\"]"));
         repeat.click();
-        Assert.assertTrue(repeat.isSelected());
+        Assert.assertTrue(repeat.isSelected());  //1
         driver.findElement(By.xpath("//select[@data-name=\"recurrence-repeats\"]")).click();
         BrowserUtils.wait(1);
         List<WebElement> repeats = driver.findElements(By.xpath("//select[@data-name=\"recurrence-repeats\"]//option"));
         for (WebElement each: repeats){
-            Assert.assertTrue(each.isDisplayed());
+            Assert.assertTrue(each.isDisplayed());  //2
         }
     }
 
@@ -160,7 +161,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
                         "2. Verify that “Repeat Every” radio button is selected" +
                         "3. Verify that “Never” radio button is selected as an “Ends” option" +
                         "4. Verify that following message as a summary is displayed: “Summary: Daily every 1 day”" )
-    public void test9() {
+    public void test09() {
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(2);
         WebElement repeat = driver.findElement(By.xpath("//input[@data-name=\"recurrence-repeat\"]"));
@@ -185,7 +186,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         driver.findElement(By.xpath("//*[text()=\"After\"]")).click();
         driver.findElement(By.xpath("//input[@data-related-field='occurrences']")).sendKeys("10", Keys.ENTER);
         WebElement text = driver.findElement(By.xpath("//div[@class=\"control-group recurrence-summary alert-info\"]"));
-        Assert.assertTrue(text.isDisplayed());
+        Assert.assertTrue(text.isDisplayed());  //
         System.out.println(text.getText()+" is Displayed!");
     }
 
@@ -199,7 +200,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         driver.findElement(By.xpath("//*[text()=\"By\"]")).click();
         driver.findElement(By.xpath("//input[@class='datepicker-input hasDatepicker']")).sendKeys("NOV 18, 2021", Keys.ENTER);
         WebElement text = driver.findElement(By.xpath("//div[@class=\"control-group recurrence-summary alert-info\"]"));
-        Assert.assertTrue(text.isDisplayed());
+        Assert.assertTrue(text.isDisplayed());  //
         System.out.println(text.getText()+" is Displayed!");
     }
 
@@ -217,10 +218,10 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         monday.click();
         WebElement friday = driver.findElement(By.xpath("//input[@value=\"friday\"]"));
         friday.click();
-        Assert.assertTrue(monday.isSelected());
-        Assert.assertTrue(friday.isSelected());
+        Assert.assertTrue(monday.isSelected());  //1
+        Assert.assertTrue(friday.isSelected());  //1
         WebElement text = driver.findElement(By.xpath("//div[@class=\"control-group recurrence-summary alert-info\"]"));
-        Assert.assertTrue(text.isDisplayed());
+        Assert.assertTrue(text.isDisplayed());  //2
         System.out.println(text.getText()+" is Displayed!");
     }
 
