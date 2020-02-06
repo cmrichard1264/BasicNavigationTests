@@ -24,7 +24,7 @@ public class Homework3_ForSynchronization_1to6 {
         driver.findElement(By.name("_username")).sendKeys("storemanager85");
         driver.findElement(By.name("_password")).sendKeys("UserUser123");
         driver.findElement(By.name("_submit")).click();
-        BrowserUtils.wait(4);
+        BrowserUtils.wait(5);
         driver.findElement(By.xpath("//*[normalize-space()='Activities' and @class='title title-level-1']")).click();
         driver.findElement(By.xpath("//*[normalize-space()='Calendar Events' and @class='title title-level-2']")).click();
         BrowserUtils.wait(2);
@@ -106,7 +106,7 @@ public class Homework3_ForSynchronization_1to6 {
     public void test6(){
 
         driver.findElement(By.cssSelector("[class='grid-row row-click-action']:nth-of-type(15)")).click();
-        BrowserUtils.wait(2);
+        BrowserUtils.wait(5);
         List<WebElement> labels = driver.findElements(By.xpath("//label[@class=\"control-label\"]"));
         List<WebElement> divs = driver.findElements(By.xpath("//div[@class=\"control-label\"]"));
         divs.add(1, driver.findElement(By.xpath("//p[text()=\"This is a a weekly testers meeting\"]")));

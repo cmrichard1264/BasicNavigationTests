@@ -72,6 +72,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         for(WebElement option: options){
             Assert.assertTrue(option.isEnabled());  //
             Assert.assertTrue(option.isDisplayed());
+            
         }
     }
 
@@ -90,8 +91,10 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
     public void test05(){
         driver.findElement(By.xpath("//a[@title=\"Create Calendar event\"]")).click();
         BrowserUtils.wait(3);
-        String startTime = driver.findElement(By.xpath("//input[@name=\"oro_calendar_event_form[start]\"]")).getAttribute("value");
-        String endTime = driver.findElement(By.xpath("//input[@name=\"oro_calendar_event_form[end]\"]")).getAttribute("value");
+        String startTime = driver.findElement(By.xpath("//input[@name=\"oro_calendar_event_form[start]\"]")).
+                getAttribute("value");
+        String endTime = driver.findElement(By.xpath("//input[@name=\"oro_calendar_event_form[end]\"]")).
+                getAttribute("value");
         System.out.println("Start time and date: "+ startTime);
         System.out.println("End time and date: "+ endTime);
         startTime = startTime.substring(11, 16).replace(":", "");
@@ -223,6 +226,7 @@ public class Homework4_ForVytrackCalendarEventsPage_1to12 {
         WebElement text = driver.findElement(By.xpath("//div[@class=\"control-group recurrence-summary alert-info\"]"));
         Assert.assertTrue(text.isDisplayed());  //2
         System.out.println(text.getText()+" is Displayed!");
+
     }
 
 

@@ -26,17 +26,17 @@ public class Homework5_2to5 {
         }
         List<WebElement> goldElements = driver.findElements(By.xpath("//table[contains(@class, \"wikitable sortable\")]//tr//td[2]"));
         ArrayList<Integer> goldNums = new ArrayList<>();
-        for(int i = 0; i <= goldElements.size()-4; i++){
+        for(int i = 0; i <= goldElements.size()-3; i++){
             goldNums.add(Integer.parseInt(goldElements.get(i).getText()));
         }
 
 
-        Map<String, Integer> goldCount = new LinkedHashMap<>();
-        for(int i = 0; i < actualCountries.size() && i < goldNums.size(); i++){
-            goldCount.put( actualCountries.get(i),goldNums.get(i));
+        Map<Integer, String> goldCount = new LinkedHashMap<>();
+        for(int i = 0; i < actualCountries.size()-1 && i < goldNums.size()-1; i++){
+            goldCount.put(goldNums.get(i), actualCountries.get(i));
         }
 
-        System.out.println(goldCount);
+        System.out.println(goldCount.get(8));
 
     }
 }

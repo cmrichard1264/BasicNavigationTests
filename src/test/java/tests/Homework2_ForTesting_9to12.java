@@ -37,7 +37,6 @@ public class Homework2_ForTesting_9to12 {
         actualResult = messageSplit[0];
         String expectedResult = "This page returned a " + code + " status code.";
         Assert.assertEquals(actualResult, expectedResult, "Failed");
-
     }
 
 
